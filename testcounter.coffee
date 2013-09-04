@@ -35,7 +35,7 @@ if Meteor.isServer
         processed: false
 
   Meteor.publish 'search-available', ->
-    id = Random.id()
+    mainId = Random.id()
     count = 0
     initializing = true
 
@@ -49,23 +49,23 @@ if Meteor.isServer
         count++
 
         if !initializing
-          @changed 'SearchResults', id,
+          @changed 'SearchResults', mainId,
             count: count
 
       removed: (id) =>
         count--
-        @changed 'SearchResults', id,
+        @changed 'SearchResults', mainId,
           count: count
 
     initializing = false
 
-    @added 'SearchResults', id,
+    @added 'SearchResults', mainId,
       count: count
 
     @ready()
 
     @onStop =>
-      @removed 'SearchResults', id
+      @removed 'SearchResults', mainId
 
       handle.stop()
 
