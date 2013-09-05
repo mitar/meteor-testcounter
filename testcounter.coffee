@@ -45,7 +45,9 @@ if Meteor.isServer
       field:
         _id: 1
     ).observeChanges
-      added: (id) =>
+      added: (id, fields) =>
+        console.log id, fields
+
         count++
 
         if !initializing
